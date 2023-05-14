@@ -3361,6 +3361,31 @@ $(function () {
 
           if (gShowChatTooltips) li[0].title = msg.p._id;
         }
+        
+        if (msg.m !== 'dm') { //The wrapping here is kind of wonky tbh - Vapor
+          li.find('.id').on("click", evt => {
+            navigator.clipboard.writeText(msg.p._id)
+          })
+        } else if (msg.m === 'dm') {
+          li.find('.id').on("click", evt => {
+            if (msg.sender._id === gClient.user._id) {
+              navigator.clipboard.writeText(msg.recipient._id);
+            } else {
+              if (msg.sender._id !== gClient.user._id) {
+                navigator.clipboard.writeText(msg.sender._id);
+              };
+            };
+          });
+          if (isSpecialDm) {
+            li.find('.id').on("click", evt => {
+              navigator.clipboard.writeText(msg.sender._id);
+            });
+            li.find('.id2').on("click", evt => {
+              navigator.clipboard.writeText(msg.recipient._id);
+            });
+          };
+        };
+      };
 
         //put list element in chat
 
