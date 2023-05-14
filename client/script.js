@@ -2378,7 +2378,7 @@ $(function () {
       if (gIsDming && gDmParticipant._id === part._id) {
         $('<div class="menu-item">End Direct Message</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-            gIsDming = false;
+            endDM()
             $('#chat-input')[0].placeholder = 'You can chat with this thing.';
           });
       } else {
@@ -2394,9 +2394,7 @@ $(function () {
                 text: 'After you click the button to direct message someone, future chat messages will be sent to them instead of to everyone. To go back to talking in public chat, send a blank chat message, or click the button again.',
               });
             }
-            gIsDming = true;
-            gDmParticipant = part;
-            $('#chat-input')[0].placeholder = 'Direct messaging ' + part.name + '.';
+            startDM(part)
           });
       }
       if (gCursorHides.indexOf(part._id) == -1) {
@@ -3202,6 +3200,17 @@ $(function () {
     });*/
 
     return {
+      startDM: function (part) {
+        gIsDming = true;
+        gDmParticipant = part;
+        $('#chat-input')[0].placeholder = 'Direct messaging ' + part.name + '.';
+      },
+
+      endDM: function() {
+        gIsDming = false;
+        $('#chat-input')[0].placeholder = 'You can chat with this thing.';
+      },
+      
       show: function () {
         $("#chat").fadeIn();
       },
