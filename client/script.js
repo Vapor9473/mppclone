@@ -2378,7 +2378,7 @@ $(function () {
       if (gIsDming && gDmParticipant._id === part._id) {
         $('<div class="menu-item">End Direct Message</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-            endDM()
+            gIsDming = false;
             $('#chat-input')[0].placeholder = 'You can chat with this thing.';
           });
       } else {
@@ -2394,7 +2394,9 @@ $(function () {
                 text: 'After you click the button to direct message someone, future chat messages will be sent to them instead of to everyone. To go back to talking in public chat, send a blank chat message, or click the button again.',
               });
             }
-            startDM(part)
+            gIsDming = true;
+            gDmParticipant = part;
+            $('#chat-input')[0].placeholder = 'Direct messaging ' + part.name + '.';
           });
       }
       if (gCursorHides.indexOf(part._id) == -1) {
@@ -3151,7 +3153,8 @@ $(function () {
           var message = $(this).val();
           if (message.length == 0) {
             if (gIsDming) {
-              endDM()
+              gIsDming = false;
+              $('#chat-input')[0].placeholder = 'You can chat with this thing.';
             }
             setTimeout(function () {
               chat.blur();
@@ -3199,17 +3202,6 @@ $(function () {
     });*/
 
     return {
-      startDM: function (part) {
-        gIsDming = true;
-        gDmParticipant = part;
-        $('#chat-input')[0].placeholder = 'Direct messaging ' + part.name + '.';
-      },
-
-      endDM: function() {
-        gIsDming = false;
-        $('#chat-input')[0].placeholder = 'You can chat with this thing.';
-      },
-      
       show: function () {
         $("#chat").fadeIn();
       },
@@ -3362,12 +3354,12 @@ $(function () {
           if (gShowChatTooltips) li[0].title = msg.p._id;
         }
         
-        if (msg.m !== 'dm') { //The wrapping here is kind of wonky tbh - Vapor
-          li.find('.id').on("click", evt => {
+        if (msg.m !== `dm`) { //Indentation looks weird here tbh - Vapor
+          li.find(`.id`).on("click", evt => {
             navigator.clipboard.writeText(msg.p._id)
           })
-        } else if (msg.m === 'dm') {
-          li.find('.id').on("click", evt => {
+        } else if (msg.m === `dm`) {
+          li.find(`.id`).on("click", evt => {
             if (msg.sender._id === gClient.user._id) {
               navigator.clipboard.writeText(msg.recipient._id);
             } else {
@@ -3377,15 +3369,14 @@ $(function () {
             };
           });
           if (isSpecialDm) {
-            li.find('.id').on("click", evt => {
+            li.find(`.id`).on("click", evt => {
               navigator.clipboard.writeText(msg.sender._id);
             });
-            li.find('.id2').on("click", evt => {
+            li.find(`.id2`).on("click", evt => {
               navigator.clipboard.writeText(msg.recipient._id);
             });
           };
         };
-      };
 
         //put list element in chat
 
