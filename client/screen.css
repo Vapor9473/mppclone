@@ -1126,10 +1126,12 @@ input[type="range"]:hover {
 }
 
 #chat li .id {
+    cursor: pointer;
     margin-right: 8px;
 }
 
 #chat li .id2 {
+    cursor: pointer;
     margin-right: 8px;
 }
 
