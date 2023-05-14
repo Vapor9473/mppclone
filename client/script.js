@@ -3151,8 +3151,7 @@ $(function () {
           var message = $(this).val();
           if (message.length == 0) {
             if (gIsDming) {
-              gIsDming = false;
-              $('#chat-input')[0].placeholder = 'You can chat with this thing.';
+              endDM()
             }
             setTimeout(function () {
               chat.blur();
