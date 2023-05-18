@@ -1105,6 +1105,10 @@ input[type="range"]:hover {
     opacity: 0;
 }
 
+#chat li .reply {
+    margin-right: 8px;
+}
+
 #chat li .receivedDm {
     margin-right: 8px;
 }
