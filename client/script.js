@@ -2247,6 +2247,17 @@ $(function () {
     }
   });
 
+  //Replies
+
+  var gReplyParticipant;
+  var gIsReplying = false;
+  var gMessageId;
+  gClient.on(`participant removed`, part => {
+    if (gIsReplying && part._id === gReplyParticipant._id) {
+      MPP.chat.cancelReply();
+    }
+  });
+  
   // click participant names
   (function () {
     participantTouchhandler = function (e, ele) {
@@ -3153,9 +3164,12 @@ $(function () {
           var message = $(this).val();
           if (message.length == 0) {
             if (gIsDming) {
-              gIsDming = false;
-              $('#chat-input')[0].placeholder = 'You can chat with this thing.';
-            }
+              MPP.chat.endDM();
+            } else {
+              if (gIsReplying) {
+                MPP.chat.cancelReply();
+              };
+            };
             setTimeout(function () {
               chat.blur();
             }, 100);
@@ -3202,6 +3216,28 @@ $(function () {
     });*/
 
     return {
+      startReply: function(part, mId) {
+        gIsReplying = true;
+        gReplyParticipant = part;
+        gMessageId = mId;
+        $('#chat-input')[0].placeholder = `Replying to ${part.name}.`;
+      },
+      
+      startDmReply: function (part, id) {
+        gIsReplying = true;
+        gIsDming = true;
+        gMessageId = id;
+        gReplyParticipant = part;
+        gDmParticipant = part;
+        $('#chat-input')[0].placeholder = `Replying to ${part.name} in a DM.`;
+      },
+
+      cancelReply: function() {
+        if (gIsDming) gIsDming = false;
+        gIsReplying = false;
+        $('#chat-input')[0].placeholder = 'You can chat with this thing.';
+      },
+      
       show: function () {
         $("#chat").fadeIn();
       },
@@ -3229,13 +3265,24 @@ $(function () {
       },
 
       send: function (message) {
-        if (gIsDming) {
-          gClient.sendArray([{ m: 'dm', _id: gDmParticipant._id, message }]);
+        if (gIsReplying && gIsDming) {
+          gClient.sendArray([{
+            m: `dm`, reply_to: gMessageId, _id: gReplyParticipant._id, message
+          }]);
+          setTimeout(()=> { MPP.chat.cancelReply(); }, 100);
         } else {
-          gClient.sendArray([{ m: "a", message }]);
-        }
+          if (gIsReplying && !gIsDming) {
+            gClient.sendArray([{ m: `a`, reply_to: gMessageId, _id: gReplyParticipant._id, message }]);
+          } else {
+            if (gIsDming && !gIsReplying) {
+              gClient.sendArray([{ m: 'dm', _id: gDmParticipant._id, message }]);
+            } else {
+              gClient.sendArray([{ m: "a", message }]);
+            };
+          };
+        };
       },
-
+      
       receive: function (msg) {
         if (msg.m === 'dm') {
           if (gChatMutes.indexOf(msg.sender._id) != -1) return;
@@ -3248,8 +3295,20 @@ $(function () {
         var liString = '<li>';
 
         var isSpecialDm = false;
-
-        if (gShowTimestampsInChat) liString += '<span class="timestamp"/>';
+        
+        if (msg.m !== 'dm') {
+          liString += '<span class="reply"/>';
+        } else {
+          if (msg.m === 'dm') {
+            if (msg.sender._id != gClient.user._id) {
+              liString += '<span class="reply"/>';
+            };
+          };
+        };
+        
+        li.find(`.reply`).text("➦");
+        
+        if (gShowTimestampsInChat) liString += '<span class="timestamp"/>'; //Note from Vapor: I'm going to make a pr for adding a couple settings for time, such as "24-hour time" and "show milliseconds" sometime soon.
 
         if (msg.m === 'dm') {
           if (msg.sender._id === gClient.user._id) { //sent dm
@@ -3273,6 +3332,7 @@ $(function () {
         }
 
         var li = $(liString);
+        
 
         //prefix before dms so people know it's a dm
         if (msg.m === 'dm') {
@@ -3353,6 +3413,21 @@ $(function () {
 
           if (gShowChatTooltips) li[0].title = msg.p._id;
         }
+        
+        li.find(`.reply`).on(`click`, evt => {
+          if (msg.m !== 'dm') {
+            MPP.chat.startReply(msg.p, msg.id);
+            setTimeout(() => {
+              $('#chat-input').focus();
+            }, 1);
+          } else {
+            MPP.chat.startDmReply(msg.sender, msg.id)
+            setTimeout(() => {
+              $('#chat-input').focus();
+            }, 1);
+          };
+        });
+
 
         //put list element in chat
 
