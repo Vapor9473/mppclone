@@ -3352,6 +3352,7 @@ $(function () {
 
           li.find(`.replyLink`).on(`click`, evt => {
             if (repliedMsg) {
+              $("#chat input").focus();
               document.getElementById(`msg-${repliedMsg?.id}`).scrollIntoView({behavior: "smooth"});
               $(`#msg-${repliedMsg?.id}`).css({"background": "#8B8000", "transition": "background 0.5s"});
               setTimeout(()=> {$(`#msg-${repliedMsg?.id}`).css({"background": "", "transition": "background 0.5s"}); }, 5000);
