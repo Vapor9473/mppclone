@@ -3347,7 +3347,7 @@ $(function () {
 
                 if (msg.r) {
                     var repliedMsg = messageCache.find(e => e.id === msg.r);
-                    li.find(".replyLink").text(`➦ ${repliedMsg?.a?.substring(0, 5) + "..." ?? "Unknown Message"}`); //Uses the first 5 letters of the message to prevent flood from very long names.
+                    li.find(".replyLink").text(`➦ ${(repliedMsg?.a?.length > 5 ? repliedMsg?.a?.substring(0, 5) + "..." : repliedMsg?.a?.substring(0, 5)) ?? "Unknown Message"}`); //Uses the first 5 letters of the message to prevent flood from very long names.
                     li.find(`.replyLink`).css({"background": `${(repliedMsg?.m === "dm" ? repliedMsg?.sender?.color : repliedMsg?.p?.color) ?? "gray"}`}); //I don't know if I spelled this right. I'm finishing this at almost midnight in my timezone.
 
                     li.find(`.replyLink`).on(`click`, evt => {
