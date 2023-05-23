@@ -1,4 +1,3 @@
-
 // 钢琴
 
 $(function () {
@@ -28,8 +27,8 @@ $(function () {
   }
 
   window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame
-  || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
-  || function (cb) { setTimeout(cb, 1000 / 30); };
+    || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+    || function (cb) { setTimeout(cb, 1000 / 30); };
 
 
 
@@ -735,12 +734,12 @@ $(function () {
 
         if (key.sharp) {
           ctx.fillRect(this.blackKeyOffset + this.whiteKeyWidth * key.spatial + ctx.lineWidth / 2,
-                       y + ctx.lineWidth / 2,
-                       this.blackKeyWidth - ctx.lineWidth, this.blackKeyHeight - ctx.lineWidth);
+            y + ctx.lineWidth / 2,
+            this.blackKeyWidth - ctx.lineWidth, this.blackKeyHeight - ctx.lineWidth);
         } else {
           ctx.fillRect(this.whiteKeyWidth * key.spatial + ctx.lineWidth / 2,
-                       y + ctx.lineWidth / 2,
-                       this.whiteKeyWidth - ctx.lineWidth, this.whiteKeyHeight - ctx.lineWidth);
+            y + ctx.lineWidth / 2,
+            this.whiteKeyWidth - ctx.lineWidth, this.whiteKeyHeight - ctx.lineWidth);
         }
       }
     }
@@ -751,10 +750,10 @@ $(function () {
       var key = this.piano.keys[i];
       if (key.sharp) {
         key.rect = new Rect(this.blackKeyOffset + this.whiteKeyWidth * key.spatial, 0,
-                            this.blackKeyWidth, this.blackKeyHeight);
+          this.blackKeyWidth, this.blackKeyHeight);
       } else {
         key.rect = new Rect(this.whiteKeyWidth * key.spatial, 0,
-                            this.whiteKeyWidth, this.whiteKeyHeight);
+          this.whiteKeyWidth, this.whiteKeyHeight);
       }
     }
   };
@@ -794,7 +793,7 @@ $(function () {
           y = Math.floor(this.keyMovement - (((now - key.timePlayed) / 100) * this.keyMovement));
         }
         var x = Math.floor(key.sharp ? this.blackKeyOffset + this.whiteKeyWidth * key.spatial
-                           : this.whiteKeyWidth * key.spatial);
+          : this.whiteKeyWidth * key.spatial);
         var image = key.sharp ? this.blackKeyRender : this.whiteKeyRender;
         this.ctx.drawImage(image, x, y);
 
@@ -817,7 +816,7 @@ $(function () {
           keyName = keyName.replace("F#", "G♭");
           keyName = keyName.replace("G#", "A♭");
           keyName = keyName.replace("A#", "B♭");
-
+  
           this.ctx.fillText(keyName, x + ((key.sharp ? this.blackKeyWidth : this.whiteKeyWidth) / 2), y + (key.sharp ? this.blackKeyHeight : this.whiteKeyHeight) - 10 - this.ctx.lineWidth);
         }
 
@@ -830,15 +829,15 @@ $(function () {
           keyName = keyName.replace("A#", "B♭");
           const keynameNoOctave = keyName.slice(0, -1);
           if (highlightScale.includes(keynameNoOctave)) {
-            const prev = this.ctx.globalAlpha;
-            this.ctx.globalAlpha = 0.3;
-            this.ctx.fillStyle = "#0f0";
-            if (key.sharp) {
-              this.ctx.fillRect(x, y, this.blackKeyWidth, this.blackKeyHeight);
-            } else {
-              this.ctx.fillRect(x, y, this.whiteKeyWidth, this.whiteKeyHeight);
-            }
-            this.ctx.globalAlpha = prev;
+              const prev = this.ctx.globalAlpha;
+              this.ctx.globalAlpha = 0.3;
+              this.ctx.fillStyle = "#0f0";
+              if (key.sharp) {
+                  this.ctx.fillRect(x, y, this.blackKeyWidth, this.blackKeyHeight);
+              } else {
+                  this.ctx.fillRect(x, y, this.whiteKeyWidth, this.whiteKeyHeight);
+              }
+              this.ctx.globalAlpha = prev;
           }
         }
 
@@ -1256,7 +1255,7 @@ $(function () {
   function getParameterByName(name, url = window.location.href) {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
+      results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
@@ -1815,13 +1814,13 @@ $(function () {
   var gHideChat = localStorage.hideChat == "true";
   var gNoPreventDefault = localStorage.noPreventDefault == "true";
   var gHideBotUsers = localStorage.hideBotUsers == "true";
-  //   var gWarnOnLinks = localStorage.warnOnLinks ? loalStorage.warnOnLinks == "true" : true;
+//   var gWarnOnLinks = localStorage.warnOnLinks ? loalStorage.warnOnLinks == "true" : true;
 
 
   // This code is not written specficially for readibility, it is a heavily used function and performance matters.
   // If someone finds this code and knows a more performant way to do this (with proof of it being more performant)
   // it may be replaced with the more performant code.
-  // Returns true if we should hide the user, and returns false when we should not.
+  // Returns true if we should hide the user, and returns false when we should not. 
   function shouldHideUser(user) {
     if (gHideBotUsers) {
       if (user) {
@@ -1844,7 +1843,7 @@ $(function () {
     $("#piano").show();
   }
 
-  // Hide chat attribute
+  // Hide chat attribute 
   if (gHideChat) {
     $("#chat").hide();
   } else {
@@ -2247,12 +2246,11 @@ $(function () {
       $('#chat-input')[0].placeholder = 'You can chat with this thing.';
     }
   });
-
+  
   //Replies
 
   var gReplyParticipant;
   var gIsReplying = false;
-  var gMessageArray;
   var gMessageId;
   gClient.on(`participant removed`, part => {
     if (gIsReplying && part._id === gReplyParticipant._id) {
@@ -2325,173 +2323,173 @@ $(function () {
       });
       // this spaces stuff out but also can be used for informational
       $('<div class="info"></div>').appendTo(menu).text(part._id).on("mousedown touchstart", evt => {
-        navigator.clipboard.writeText(part._id);
-        evt.target.innerText = "Copied!";
+          navigator.clipboard.writeText(part._id);
+          evt.target.innerText = "Copied!";
       });
       // add menu items
       if (gPianoMutes.indexOf(part._id) == -1) {
         $('<div class="menu-item">Mute Notes</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          gPianoMutes.push(part._id);
-          if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
-          $(part.nameDiv).addClass("muted-notes");
-        });
+            gPianoMutes.push(part._id);
+            if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
+            $(part.nameDiv).addClass("muted-notes");
+          });
       } else {
         $('<div class="menu-item">Unmute Notes</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          var i;
-          while ((i = gPianoMutes.indexOf(part._id)) != -1)
-            gPianoMutes.splice(i, 1);
-          if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
-          $(part.nameDiv).removeClass("muted-notes");
-        });
+            var i;
+            while ((i = gPianoMutes.indexOf(part._id)) != -1)
+              gPianoMutes.splice(i, 1);
+            if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
+            $(part.nameDiv).removeClass("muted-notes");
+          });
       }
       if (gChatMutes.indexOf(part._id) == -1) {
         $('<div class="menu-item">Mute Chat</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          gChatMutes.push(part._id);
-          if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
-          $(part.nameDiv).addClass("muted-chat");
-        });
+            gChatMutes.push(part._id);
+            if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
+            $(part.nameDiv).addClass("muted-chat");
+          });
       } else {
         $('<div class="menu-item">Unmute Chat</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          var i;
-          while ((i = gChatMutes.indexOf(part._id)) != -1)
-            gChatMutes.splice(i, 1);
-          if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
-          $(part.nameDiv).removeClass("muted-chat");
-        });
+            var i;
+            while ((i = gChatMutes.indexOf(part._id)) != -1)
+              gChatMutes.splice(i, 1);
+            if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
+            $(part.nameDiv).removeClass("muted-chat");
+          });
       }
       if (!(gPianoMutes.indexOf(part._id) >= 0) || !(gChatMutes.indexOf(part._id) >= 0)) {
         $('<div class="menu-item">Mute Completely</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          gPianoMutes.push(part._id);
-          if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
-          gChatMutes.push(part._id);
-          if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
-          $(part.nameDiv).addClass("muted-notes");
-          $(part.nameDiv).addClass("muted-chat");
-        });
+            gPianoMutes.push(part._id);
+            if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
+            gChatMutes.push(part._id);
+            if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
+            $(part.nameDiv).addClass("muted-notes");
+            $(part.nameDiv).addClass("muted-chat");
+          });
       }
       if ((gPianoMutes.indexOf(part._id) >= 0) || (gChatMutes.indexOf(part._id) >= 0)) {
         $('<div class="menu-item">Unmute Completely</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          var i;
-          while ((i = gPianoMutes.indexOf(part._id)) != -1)
-            gPianoMutes.splice(i, 1);
-          while ((i = gChatMutes.indexOf(part._id)) != -1)
-            gChatMutes.splice(i, 1);
-          if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
-          if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
-          $(part.nameDiv).removeClass("muted-notes");
-          $(part.nameDiv).removeClass("muted-chat");
-        });
+            var i;
+            while ((i = gPianoMutes.indexOf(part._id)) != -1)
+              gPianoMutes.splice(i, 1);
+            while ((i = gChatMutes.indexOf(part._id)) != -1)
+              gChatMutes.splice(i, 1);
+            if (localStorage) localStorage.pianoMutes = gPianoMutes.join(',');
+            if (localStorage) localStorage.chatMutes = gChatMutes.join(',');
+            $(part.nameDiv).removeClass("muted-notes");
+            $(part.nameDiv).removeClass("muted-chat");
+          });
       }
       if (gIsDming && gDmParticipant._id === part._id) {
         $('<div class="menu-item">End Direct Message</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          gIsDming = false;
-          $('#chat-input')[0].placeholder = 'You can chat with this thing.';
-        });
+            gIsDming = false;
+            $('#chat-input')[0].placeholder = 'You can chat with this thing.';
+          });
       } else {
         $('<div class="menu-item">Direct Message</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          if (!gKnowsHowToDm) {
-            localStorage.knowsHowToDm = true;
-            gKnowsHowToDm = true;
-            new Notification({
-              target: '#piano',
-              duration: 20000,
-              title: 'How to DM',
-              text: 'After you click the button to direct message someone, future chat messages will be sent to them instead of to everyone. To go back to talking in public chat, send a blank chat message, or click the button again.',
-            });
-          }
-          gIsDming = true;
-          gDmParticipant = part;
-          $('#chat-input')[0].placeholder = 'Direct messaging ' + part.name + '.';
-        });
+            if (!gKnowsHowToDm) {
+              localStorage.knowsHowToDm = true;
+              gKnowsHowToDm = true;
+              new Notification({
+                target: '#piano',
+                duration: 20000,
+                title: 'How to DM',
+                text: 'After you click the button to direct message someone, future chat messages will be sent to them instead of to everyone. To go back to talking in public chat, send a blank chat message, or click the button again.',
+              });
+            }
+            gIsDming = true;
+            gDmParticipant = part;
+            $('#chat-input')[0].placeholder = 'Direct messaging ' + part.name + '.';
+          });
       }
       if (gCursorHides.indexOf(part._id) == -1) {
-        $('<div class="menu-item">Hide Cursor</div>').appendTo(menu)
-          .on("mousedown touchstart", function (evt) {
-          gCursorHides.push(part._id);
-          if (localStorage) localStorage.cursorHides = gCursorHides.join(',');
-          $(part.cursorDiv).hide();
-        });
-      } else {
-        $('<div class="menu-item">Show Cursor</div>').appendTo(menu)
-          .on("mousedown touchstart", function (evt) {
-          var i;
-          while ((i = gCursorHides.indexOf(part._id)) != -1)
-            gCursorHides.splice(i, 1);
-          if (localStorage) localStorage.cursorHides = gCursorHides.join(',');
-          $(part.cursorDiv).show();
-        });
-      }
+          $('<div class="menu-item">Hide Cursor</div>').appendTo(menu)
+            .on("mousedown touchstart", function (evt) {
+              gCursorHides.push(part._id);
+              if (localStorage) localStorage.cursorHides = gCursorHides.join(',');
+              $(part.cursorDiv).hide();
+            });
+        } else {
+          $('<div class="menu-item">Show Cursor</div>').appendTo(menu)
+            .on("mousedown touchstart", function (evt) {
+              var i;
+              while ((i = gCursorHides.indexOf(part._id)) != -1)
+              gCursorHides.splice(i, 1);
+              if (localStorage) localStorage.cursorHides = gCursorHides.join(',');
+              $(part.cursorDiv).show();
+            });
+        }
 
       $('<div class="menu-item">Mention</div>').appendTo(menu)
         .on("mousedown touchstart", function (evt) {
-        $('#chat-input')[0].value += '@' + part.id + ' ';
-        setTimeout(() => {
-          $('#chat-input').focus();
-        }, 1);
-      });
+          $('#chat-input')[0].value += '@' + part.id + ' ';
+          setTimeout(() => {
+            $('#chat-input').focus();
+          }, 1);
+        });
 
       if (gClient.isOwner() || gClient.permissions.chownAnywhere) {
         if (!gClient.channel.settings.lobby) {
           $('<div class="menu-item give-crown">Give Crown</div>').appendTo(menu)
             .on("mousedown touchstart", function (evt) {
-            if (confirm("Give room ownership to " + part.name + "?"))
-              gClient.sendArray([{ m: "chown", id: part.id }]);
-          });
+              if (confirm("Give room ownership to " + part.name + "?"))
+                gClient.sendArray([{ m: "chown", id: part.id }]);
+            });
         }
         $('<div class="menu-item kickban">Kickban</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          var minutes = prompt("How many minutes? (0-300)", "30");
-          if (minutes === null) return;
-          minutes = parseFloat(minutes) || 0;
-          var ms = minutes * 60 * 1000;
-          gClient.sendArray([{ m: "kickban", _id: part._id, ms: ms }]);
-        });
+            var minutes = prompt("How many minutes? (0-300)", "30");
+            if (minutes === null) return;
+            minutes = parseFloat(minutes) || 0;
+            var ms = minutes * 60 * 1000;
+            gClient.sendArray([{ m: "kickban", _id: part._id, ms: ms }]);
+          });
       }
       if (gClient.permissions.siteBan) {
         $('<div class="menu-item site-ban">Site Ban</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          openModal("#siteban");
-          setTimeout(function () {
-            $("#siteban input[name=id]").val(part._id);
-            $("#siteban input[name=reasonText]").val("Discrimination against others");
-            $("#siteban input[name=reasonText]").attr("disabled", true);
-            $("#siteban select[name=reasonSelect]").val("Discrimination against others");
-            $("#siteban input[name=durationNumber]").val(5);
-            $("#siteban input[name=durationNumber]").attr("disabled", false);
-            $("#siteban select[name=durationUnit]").val("hours");
-            $("#siteban textarea[name=note]").val("");
-            $("#siteban p[name=errorText]").text("")
-            if (gClient.permissions.siteBanAnyReason) {
-              $("#siteban select[name=reasonSelect] option[value=custom]").attr("disabled", false);
-            } else {
-              $("#siteban select[name=reasonSelect] option[value=custom]").attr("disabled", true);
-            }
-          }, 100);
-        });
+            openModal("#siteban");
+            setTimeout(function () {
+              $("#siteban input[name=id]").val(part._id);
+              $("#siteban input[name=reasonText]").val("Discrimination against others");
+              $("#siteban input[name=reasonText]").attr("disabled", true);
+              $("#siteban select[name=reasonSelect]").val("Discrimination against others");
+              $("#siteban input[name=durationNumber]").val(5);
+              $("#siteban input[name=durationNumber]").attr("disabled", false);
+              $("#siteban select[name=durationUnit]").val("hours");
+              $("#siteban textarea[name=note]").val("");
+              $("#siteban p[name=errorText]").text("")
+              if (gClient.permissions.siteBanAnyReason) {
+                $("#siteban select[name=reasonSelect] option[value=custom]").attr("disabled", false);
+              } else {
+                $("#siteban select[name=reasonSelect] option[value=custom]").attr("disabled", true);
+              }
+            }, 100);
+          });
       }
       if (gClient.permissions.usersetOthers) {
         $('<div class="menu-item set-color">Set Color</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          var color = prompt("What color?", part.color);
-          if (color === null) return;
-          gClient.sendArray([{ m: "setcolor", _id: part._id, color: color }]);
-        });
+            var color = prompt("What color?", part.color);
+            if (color === null) return;
+            gClient.sendArray([{ m: "setcolor", _id: part._id, color: color }]);
+          });
       }
       if (gClient.permissions.usersetOthers) {
         $('<div class="menu-item set-name">Set Name</div>').appendTo(menu)
           .on("mousedown touchstart", function (evt) {
-          var name = prompt("What name?", part.name);
-          if (name === null) return;
-          gClient.sendArray([{ m: "setname", _id: part._id, name: name }]);
-        });
+            var name = prompt("What name?", part.name);
+            if (name === null) return;
+            gClient.sendArray([{ m: "setname", _id: part._id, name: name }]);
+          });
       }
       menu.fadeIn(100);
     };
@@ -2536,7 +2534,7 @@ $(function () {
       eles.remove();
     }
     this.domElement = $('<div class="notification"><div class="notification-body"><div class="title"></div>' +
-                        '<div class="text"></div></div><div class="x">X</div></div>');
+      '<div class="text"></div></div><div class="x">X</div></div>');
     this.domElement[0].id = this.id;
     this.domElement.addClass(this["class"]);
     this.domElement.find(".title").text(this.title);
@@ -3168,11 +3166,7 @@ $(function () {
             if (gIsDming) {
               gIsDming = false;
               $('#chat-input')[0].placeholder = 'You can chat with this thing.';
-            } else {
-              if (gIsReplying) {
-                MPP.chat.cancelReply();
-              };
-            };
+            }
             setTimeout(function () {
               chat.blur();
             }, 100);
@@ -3220,30 +3214,28 @@ $(function () {
     var messageCache = [];
 
     return {
-      startReply: function(part, mId, arr) {
+      startReply: function (part, id) {
         gIsReplying = true;
         gReplyParticipant = part;
-        gMessageId = mId;
-        gMessageArray = arr
-        $('#chat-input')[0].placeholder = `Replying to ${part.name}.`;
+        gMessageId = id;
+        $("#chat-input").placeholder = `Replying to ${part.name}`;
       },
-
-      startDmReply: function (part, id, arr) {
+      
+      startDmReply: function (part, id) {
         gIsReplying = true;
         gIsDming = true;
-        gMessageArray = arr
         gMessageId = id;
         gReplyParticipant = part;
         gDmParticipant = part;
-        $('#chat-input')[0].placeholder = `Replying to ${part.name} in a DM.`;
+        $("#chat-input").placeholder = `Replying to ${part.name} in a DM.`;
       },
-
-      cancelReply: function() {
+      
+      cancelReply: function () {
         if (gIsDming) gIsDming = false;
         gIsReplying = false;
-        $('#chat-input')[0].placeholder = 'You can chat with this thing.';
+        $("#chat-input").placeholder = `You can chat with this thing.`;
       },
-
+      
       show: function () {
         $("#chat").fadeIn();
       },
@@ -3271,23 +3263,20 @@ $(function () {
       },
 
       send: function (message) {
-        if (gIsReplying && gIsDming) {
-          gClient.sendArray([{
-            m: `dm`, reply_to: gMessageId, _id: gReplyParticipant._id, message
-          }]);
-          setTimeout(()=> { MPP.chat.cancelReply(); }, 100);
-        } else {
-          if (gIsReplying && !gIsDming) {
-            gClient.sendArray([{ m: `a`, reply_to: gMessageId, _id: gReplyParticipant._id, message }]);
-            setTimeout(()=> { MPP.chat.cancelReply(); }, 100);
+        if (gIsReplying) {
+          if (gIsDming) {
+            gClient.sendArray([{ m: 'dm', reply_to: gMessageId, _id: gReplyParticipant._id, message }]);
+            setTimeout(() => { MPP.chat.cancelReply(); }, 100);
           } else {
-            if (gIsDming && !gIsReplying) {
-              gClient.sendArray([{ m: 'dm', _id: gDmParticipant._id, message }]);
-            } else {
-              gClient.sendArray([{ m: "a", message }]);
-            };
-          };
-        };
+            gClient.sendArray([{m: 'a', reply_to: gMessageId, _id: gReplyParticipant._id, message }]);
+            setTimeout(() => { MPP.chat.cancelReply(); }, 100);
+          }
+        }
+        if (gIsDming) {
+          gClient.sendArray([{ m: 'dm', _id: gDmParticipant._id, message }]);
+        } else {
+          gClient.sendArray([{ m: "a", message }]);
+        }
       },
 
       receive: function (msg) {
@@ -3299,22 +3288,19 @@ $(function () {
 
         //construct string for creating list element
 
-        var liString = `<li><span id="msg-${msg.id}">`;
+        var liString = `<li id="msg-${msg.id}">`;
 
         var isSpecialDm = false;
-
-        if (msg.m !== 'dm') {
-          liString += '<span class="reply"/>';
+        
+        if (msg.m === 'dm') {
+          if (msg.sender._id != gClient.user._id) {
+            liString += `<span class="reply"/>`;
+          }
         } else {
-          if (msg.m === 'dm') {
-            if (msg.sender._id != gClient.user._id) {
-              liString += '<span class="reply"/>';
-            };
-          };
-        };
+          liString += `<span class="reply"/>`;
+        }
 
-
-        if (gShowTimestampsInChat) liString += '<span class="timestamp"/>'; //Note from Vapor: I'm going to make a pr for adding a couple settings for time, such as "24-hour time" and "show milliseconds" sometime soon.
+        if (gShowTimestampsInChat) liString += '<span class="timestamp"/>';
 
         if (msg.m === 'dm') {
           if (msg.sender._id === gClient.user._id) { //sent dm
@@ -3334,31 +3320,26 @@ $(function () {
           liString += '<span class="name2"/><span class="message"/>';
         } else {
           if (gShowIdsInChat) liString += '<span class="id"/>';
-          liString += `<span class="name"/>`;
-          if (msg.r) liString += '<span class="replyLink"/> ';
+          liString += '<span class="name"/>'
+          if (msg.r) liString += `<span class="replyLink"/>`
           liString += '<span class="message"/>';
         }
 
-
-
         var li = $(liString);
-
         li.find(`.reply`).text("➦");
-
+        
         if (msg.r) {
           var repliedMsg = messageCache.find(e => e.id === msg.r);
-          li.find(".replyLink").text(`➦ ${(repliedMsg?.a?.length > 5 ? repliedMsg?.a?.substring(0, 5) + "..." : repliedMsg?.a?.substring(0, 5)) ?? "Unknown Message"}`);
+          li.find(".replyLink").text(`➦ ${(repliedMsg?.m !== 'dm' ? repliedMsg?.p?.name : repliedMsg?.sender?.name)}: ${(repliedMsg?.a?.length > 10 ? repliedMsg?.a?.substring(0, 10) + "..." : repliedMsg?.a?.substring(0, 5)) ?? "Unknown Message"}`);
           li.find(`.replyLink`).css({"background": `${(repliedMsg?.m === "dm" ? repliedMsg?.sender?.color : repliedMsg?.p?.color) ?? "gray"}`});
-
           li.find(`.replyLink`).on(`click`, evt => {
             if (repliedMsg) {
-              $("#chat input").focus();
               document.getElementById(`msg-${repliedMsg?.id}`).scrollIntoView({behavior: "smooth"});
-              $(`#msg-${repliedMsg?.id}`).css({"background": "#8B8000", "transition": "background 0.5s"});
-              setTimeout(()=> {$(`#msg-${repliedMsg?.id}`).css({"background": "", "transition": "background 0.5s"}); }, 5000);
+              $(`#msg-${repliedMsg?.id}`).css({"border": `1px solid ${(repliedMsg?.m === 'dm' ? repliedMsg.sender?.color : repliedMsg.p?.color)}80`, "background-color": `${(repliedMsg?.m === 'dm' ? repliedMsg.sender?.color : repliedMsg.p?.color)}20`, "transition": "background 0.5s"});
+              setTimeout(()=> {$(`#msg-${repliedMsg?.id}`).css({"border": "none", "background": "", "transition": "background 0.5s"}); }, 5000);
             }
           })
-        }
+        };
 
         //prefix before dms so people know it's a dm
         if (msg.m === 'dm') {
@@ -3439,37 +3420,40 @@ $(function () {
 
           if (gShowChatTooltips) li[0].title = msg.p._id;
         }
-
-        li.find(`.reply`).on(`click`, evt => {
+        
+        //Adds copying _ids on click in chat
+        li.find(".id").on('click', evt => {
+          if (msg.m === 'dm') {
+            navigator.clipboard.writeText((msg.sender._id === gClient.user._id ? msg.recipient._id : msg.sender._id));
+          } else {
+            navigator.clipboard.writeText(msg.p._id);
+          }
+        });
+        li.find(".id2").on('click', evt => {
+          navigator.clipboard.writeText(msg.recipient._id);
+        });
+        
+        //Reply button click event listener
+        li.find('.reply').on('click', evt => {
           if (msg.m !== 'dm') {
             MPP.chat.startReply(msg.p, msg.id, msg.a);
-            setTimeout(() => {
-              $('#chat-input').focus();
-            }, 1);
+            setTimeout(() => { $('#chat-input').focus(); }, 100);
           } else {
-            MPP.chat.startDmReply(msg.sender, msg.id, msg.a)
-            setTimeout(() => {
-              $('#chat-input').focus();
-            }, 1);
-          };
+            if (msg.m === 'dm') {
+              if (gClient.ppl.includes(msg.sender._id)) {
+                MPP.chat.startDmReply(msg.sender, msg.id);
+                setTimeout(() => { $('#chat-input').focus(); }, 100);
+              } else {
+                new Notification({target: "#piano", title: "User not found.", text: "The user who you are trying to reply to in a DM is not found, so a DM could not be started." });
+              }
+            }
+          }
         });
-
-        // This is copying _ids, so we can kill two birds with one stone.
-        li.find(`.id`).on(`click`, evt => {
-          if (msg.sender === gClient.user) navigator.clipboard.writeText(msg.recipient?._id ?? msg.p?._id);
-          else navigator.clipboard.writeText(msg.p?._id ?? msg.sender._id)
-        });
-
-        li.find(`.id2`).on(`click`, evt => {
-          navigator.clipboard.writeText(msg.recipient._id)
-        });
-        li.find(`.id`).css({"cursor": "pointer"});
-        li.find(`.id2`).css({"cursor": "pointer"});
 
         //put list element in chat
 
         $("#chat ul").append(li);
-        messageCache.push(msg);
+        messageCache.push(msg)
 
         var eles = $("#chat ul li").get();
         for (var i = 1; i <= 50 && i <= eles.length; i++) {
@@ -3479,8 +3463,8 @@ $(function () {
           eles[0].style.display = "none";
         }
         if (eles.length > 256) {
+          messageCache.shift()
           $(eles[0]).remove();
-          messageCache.shift();
         }
 
         // scroll to bottom if not "chatting" or if not scrolled up
@@ -3669,7 +3653,7 @@ $(function () {
 
           function showConnections(sticky) {
             //if(document.getElementById("Notification-MIDI-Connections"))
-            //sticky = 1; // todo: instead,
+            //sticky = 1; // todo: instead, 
             var inputs_ul = document.createElement("ul");
             if (midi.inputs.size > 0) {
               var inputs = midi.inputs.values();
@@ -3861,7 +3845,7 @@ $(function () {
 
     get pressSustain() { return pressSustain },
     set pressSustain(func) { pressSustain = func },
-
+    
     get releaseSustain() { return releaseSustain },
     set releaseSustain(func) { releaseSustain = func },
 
@@ -4264,7 +4248,7 @@ $(function () {
         })();
 
         (function () {
-          var setting = document.createElement("div");
+            var setting = document.createElement("div");
           setting.classList = "setting";
           setting.innerText = "Hide all cursors";
           if (gHideAllCursors) {
@@ -4275,9 +4259,9 @@ $(function () {
             localStorage.hideAllCursors = setting.classList.contains("enabled");
             gHideAllCursors = setting.classList.contains("enabled");
             if (gHideAllCursors) {
-              $("#cursors").hide();
+                $("#cursors").hide();
             } else {
-              $("#cursors").show();
+                $("#cursors").show();
             }
           };
           html.appendChild(setting);
@@ -4340,7 +4324,7 @@ $(function () {
 
         const label = document.createElement("label");
         label.innerText = labelText + ": ";
-
+          
         label.appendChild(setting);
         html.appendChild(label);
         if (addBr) html.appendChild(document.createElement("br"));
@@ -4352,9 +4336,9 @@ $(function () {
         for (let index = 0; index < tablinks.length; index++) {
           tablinks[index].className = tablinks[index].className.replace(" active", "");
         }
-
+        
         evt.currentTarget.className += " active";
-
+        
         switch (tabName.toLowerCase()) {
           case "chat":
             var html = document.createElement("div");
@@ -4392,7 +4376,7 @@ $(function () {
 
             content.appendChild(html);
             break;
-
+        
           case "midi":
             var html = document.createElement("div");
 
@@ -4443,7 +4427,7 @@ $(function () {
             option.value = option.innerText = "None";
             option.selected = !gHighlightScaleNotes;
             setting.appendChild(option);
-
+    
             for (const key of keys) {
               const option = document.createElement('option');
               option.value = key;
@@ -4451,7 +4435,7 @@ $(function () {
               option.selected = key === gHighlightScaleNotes;
               setting.appendChild(option);
             }
-
+    
             if (gHighlightScaleNotes) {
               setting.value = gHighlightScaleNotes;
             }
@@ -4474,7 +4458,7 @@ $(function () {
               gNoPreventDefault = !gNoPreventDefault;
               localStorage.noPreventDefault = noPreventDefault;
             });
-
+            
             createSetting("force-dark-background", "Force dark background", gNoBackgroundColor, true, html, () => {
               gNoBackgroundColor = !gNoBackgroundColor;
               localStorage.noBackgroundColor = gNoBackgroundColor;
@@ -4514,22 +4498,22 @@ $(function () {
               gHideAllCursors = !gHideAllCursors;
               localStorage.hideAllCursors = gHideAllCursors;
               if (gHideAllCursors) {
-                $("#cursors").hide();
+                  $("#cursors").hide();
               } else {
-                $("#cursors").show();
+                  $("#cursors").show();
               }
             });
 
             createSetting("hide-bot-users", "Hide all bots", gHideBotUsers, true, html, () => {
-              gHideBotUsers = !gHideBotUsers;
-              localStorage.hideBotUsers = gHideBotUsers;
+                gHideBotUsers = !gHideBotUsers;
+                localStorage.hideBotUsers = gHideBotUsers;
             });
 
             content.appendChild(html);
             break;
         }
       }
-
+    
       changeClientSettingsTab({currentTarget: document.getElementsByClassName("client-settings-tablink")[0]}, "Chat");
     }
   })();
@@ -4591,8 +4575,8 @@ $(function () {
           window.oRequestAnimationFrame ||
           window.msRequestAnimationFrame ||
           function (callback) {
-          return window.setTimeout(callback, 16.6666667);
-        };
+            return window.setTimeout(callback, 16.6666667);
+          };
       })();
       var canvas = document.getElementById("confetti-canvas");
       if (canvas === null) {
