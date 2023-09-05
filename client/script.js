@@ -3458,12 +3458,24 @@ $(function () {
         li.find(".id").on('click', evt => {
           if (msg.m === 'dm') {
             navigator.clipboard.writeText((msg.sender._id === gClient.user._id ? msg.recipient._id : msg.sender._id));
+            li.find(".id").text("Copied!");
+            setTimeout( () => {
+              li.find(".id").text((msg.sender._id === gClient.user._id ? msg.recipient._id.substring(0, 6) : msg.sender._id.substring(0, 6)))
+            }, 3000);
           } else {
             navigator.clipboard.writeText(msg.p._id);
+            li.find(".id").text("Copied!");
+            setTimeout( () => {
+              li.find(".id").text(msg.p._id.substring(0, 6));
+            }, 3000);
           }
         });
         li.find(".id2").on('click', evt => {
           navigator.clipboard.writeText(msg.recipient._id);
+          li.find(".id2").text("Copied!");
+          setTimeout( () => {
+            li.find(".id2").text(msg.recipient._id.substring(0, 6))
+          }, 3000);
         });
 
         //Reply button click event listener
